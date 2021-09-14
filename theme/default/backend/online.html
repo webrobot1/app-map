@@ -1,0 +1,43 @@
+<script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
+{literal}
+	<script type='text/javascript'>
+		var config = {
+			type: Phaser.WEBGL,
+			width: 800,
+			height: 600,
+			backgroundColor: '#2d2d2d',
+			parent: 'phaser-example',
+			pixelArt: true,
+			scene: {
+				preload: preload,
+				create: create,
+		  
+			}
+		};
+
+		var game = new Phaser.Game(config);
+		var map;
+
+		function preload ()
+		{
+			this.load.setBaseURL('http://game/data/map/game/');
+
+			this.load.image('tiles', 'tmw_desert_spacing.png');
+			this.load.image('decor', 'decor_7.png');
+			this.load.tilemapTiledJSON('map', '1.json');
+
+		}
+
+		function create ()
+		{
+			map = this.make.tilemap({ key: 'map' });
+			map.createLayer('Ground', map.addTilesetImage('Desert', 'tiles'), 0, 0);
+			
+			var image = map.images[map.getImageIndex('player1')];
+			console.log(map);
+			
+			this.add.layer().add(this.add.sprite(image.y, image.x, 'decor'));
+			
+		}
+	</script>
+{/literal}

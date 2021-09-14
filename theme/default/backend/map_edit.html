@@ -1,0 +1,12 @@
+<form method='POST' action='{"?page&action&id"|set_query}' class='ajax_update' enctype="multipart/form-data">	
+	<table class='table table-bordered'>
+		<tr>
+			<td>Фаил</td>
+			<td>
+				<input type='file' class='form-control' name='file' accept='application/x-tiled-tmx, .tmx, application/zip, .zip' />
+				{if $map.source}<a target='_blank' href='{$map.source}'>{$map.source}</a>{/if}
+			</td>
+		</tr>	
+	</table>
+	<button type="submit" class="btn btn-primary">Save changes</button>			
+  </form>

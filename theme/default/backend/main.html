@@ -1,0 +1,24 @@
+<h3>Карты</h3>
+
+<div class="row">
+	{foreach $maps as $map}	
+		<div class="col-sm-6 col-md-3">
+			<div class="thumbnail">
+				<img />
+				<div class="caption text-center">
+					<a target='_blank' class='minimized' href='{"?page&action=preview&id=`$map.map_id`"|set_query}'><img src='{"?page&action=preview&id=`$map.map_id`"|set_query}' /></a>
+					<div class="caption text-center">
+						<h3>Map {$map.map_id}</h3>
+						<p>
+							<a data-toggle='modal' data-target='#main_modal' href='{"?page&action=replace&id=`$map.map_id`"|set_query}'>редактировать</a>
+							<a href='{"?page&action=online&id=`$map.map_id`"|set_query}'>онлайн</a>
+							<a href='{"?page&action=delete&id=`$map.map_id`"|set_query}'>удалить</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>			
+	{/foreach}		
+</div>
+
+
