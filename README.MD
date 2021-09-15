@@ -1,10 +1,10 @@
-Приложение является частью репозитория (Движок):https://github.com/webrobot1/engine в стсотаве проекта "Онлайн игры"
+Приложение является частью репозитория [Движок](https://github.com/webrobot1/engine) в стсотаве проекта "Онлайн игры"
 
 Служит для управления игровыми картами, в тч:
 
-:white_check_mark:    Загрузка карт из (Tiled):https://www.mapeditor.org/ в Mysql (слои, объекты, физика, анимации и тд)    
+:white_check_mark:    Загрузка карт из [Tiled](https://www.mapeditor.org/) в Mysql (слои, объекты, физика, анимации и тд)    
 :white_check_mark: 	  Предпросмотр загруженых карт в PHP (библиотека GD)    
-:black_square_button: Интеграция карт с (Phaser):https://www.phaser.io/    
+:black_square_button: Интеграция карт с [Phaser](https://www.phaser.io/)    
 :black_square_button: Изменение карт на стороне приложения (добавление npc, предметов точек перехода на другую карту ...) 
 
 
