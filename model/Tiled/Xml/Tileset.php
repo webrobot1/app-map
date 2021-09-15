@@ -33,9 +33,6 @@ class Tileset extends \Edisom\App\map\model\Tiled\Tileset
 			}
 			else
 				throw new \Exception("не могу прочитать содержимое фаила ".$filename);
-			
-			
-			return $this;
 		} 
 		
 		// заберем из объекта картинки ссылку на картинку и цвет прозрачности 
