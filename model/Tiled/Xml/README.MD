@@ -4,11 +4,11 @@
 
 Мы можем создавать и другие родительские классы (Layer, Tileset)? но это имеет смысл ТОЛЬКО если мы не просто хотим из xml сохранять данные в объект , а выполнять какие то манипуляции (с помощю Closure все родители уже получили метод desirialize позволяющий парсеру пройтись по всем объектам словно метод load)
 
-0. Свойства в классе что вы хотите сохранить в бд должны быть одноименны
-1. если в XM документе есть атрибут  с таким свойцством класса - оно буде записано в объекте
-2. если в xml документе есть дочерний элемент (относительно текущего) что необходимо распарсить делаем свойство класса типа массив (если несколько одноименных xml элементов)  или объект или даже строку (при условии что у класса что обрабатывает объект - об этом ниже - есть метод __toString(), но тогда вообще не указвайте тип свойству тк при парсинге из xml это будет объект что превратится в строку ,а из базы при загрузке это будет строка) , добавляем атрибут php 	#[название объекта что распарсит xml элемент] которое так же можно инициализировать в констркуторе. При сохранения имеет значение очередность элементов - в рамках одного класса они сохраняются сверху вниз (а не в том порядке каком распарсились), в связи с этим ряд свойств класса можно вынести вверх (в тч из объявления в __construct(...[])) для того что бы они сохранились первыми (при необходимости)
+1. Свойства в классе что вы хотите сохранить в бд должны быть одноименны
+2. если в XM документе есть атрибут  с таким свойцством класса - оно буде записано в объекте
+3. если в xml документе есть дочерний элемент (относительно текущего) что необходимо распарсить делаем свойство класса типа массив (если несколько одноименных xml элементов)  или объект или даже строку (при условии что у класса что обрабатывает объект - об этом ниже - есть метод __toString(), но тогда вообще не указвайте тип свойству тк при парсинге из xml это будет объект что превратится в строку ,а из базы при загрузке это будет строка) , добавляем атрибут php 	#[название объекта что распарсит xml элемент] которое так же можно инициализировать в констркуторе. При сохранения имеет значение очередность элементов - в рамках одного класса они сохраняются сверху вниз (а не в том порядке каком распарсились), в связи с этим ряд свойств класса можно вынести вверх (в тч из объявления в __construct(...[])) для того что бы они сохранились первыми (при необходимости)
 
-3. Можно парсить элемент как в п 4 но при этом свойство объявлять как string , делая в дочернем объекте метод __toString() для корректного возврата значения (свойства объекта)  которое нам нужно (например при парсинге картинок я возвращаю только ссылку на нее) 
+4. Можно парсить элемент как в п 4 но при этом свойство объявлять как string , делая в дочернем объекте метод __toString() для корректного возврата значения (свойства объекта)  которое нам нужно (например при парсинге картинок я возвращаю только ссылку на нее) 
 5. Если у элемента есть текстовы данные то необходимо переобределить метод desiarileze , напрмиер соедующим образом (в примере содержимое сохраняется в произвольное свойства объекта "text" и только после парсит все атрибуты элемента):
 
 	public function deserialize(string $source = null):object
@@ -28,34 +28,34 @@
 
 XML
 
-<?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.1" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="4">
- <tileset firstgid="1" name="tmw_desert_spacing" tilewidth="32" tileheight="32" spacing="1" margin="1" tilecount="48" columns="8">
-  <image source="tmw_desert_spacing.png" trans="4affea" width="265" height="199"/>
- </tileset>
- <tileset firstgid="49" name="tmw_desert_spacing2" tilewidth="32" tileheight="32" spacing="1" margin="1" tilecount="48" columns="8">
-  <image source="tmw_desert_spacing.png" trans="4affea" width="265" height="199"/>
-  <tile id="0">
-   <objectgroup draworder="index" id="2">
-    <object id="1" x="5.76013" y="7.63843" width="16.2786" height="16.9047"/>
-   </objectgroup>
-  </tile>
- </tileset>
- <layer id="1" name="Слой тайлов 1" width="100" height="100">
-  <data encoding="csv">
-	...
- </data>
- </layer>
- <objectgroup id="3" name="Слой объектов 1">
-  <object id="1" gid="3221225473" x="105.5" y="66.5" width="32" height="32" rotation="90"/>
-  <object id="2" gid="3221225503" x="204.639" y="72.6027" width="58.5" height="41" rotation="324.844"/>
- </objectgroup>
-</map>
+	<?xml version="1.0" encoding="UTF-8"?>
+	<map version="1.5" tiledversion="1.7.1" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="4">
+	 <tileset firstgid="1" name="tmw_desert_spacing" tilewidth="32" tileheight="32" spacing="1" margin="1" tilecount="48" columns="8">
+	  <image source="tmw_desert_spacing.png" trans="4affea" width="265" height="199"/>
+	 </tileset>
+	 <tileset firstgid="49" name="tmw_desert_spacing2" tilewidth="32" tileheight="32" spacing="1" margin="1" tilecount="48" columns="8">
+	  <image source="tmw_desert_spacing.png" trans="4affea" width="265" height="199"/>
+	  <tile id="0">
+	   <objectgroup draworder="index" id="2">
+		<object id="1" x="5.76013" y="7.63843" width="16.2786" height="16.9047"/>
+	   </objectgroup>
+	  </tile>
+	 </tileset>
+	 <layer id="1" name="Слой тайлов 1" width="100" height="100">
+	  <data encoding="csv">
+		...
+	 </data>
+	 </layer>
+	 <objectgroup id="3" name="Слой объектов 1">
+	  <object id="1" gid="3221225473" x="105.5" y="66.5" width="32" height="32" rotation="90"/>
+	  <object id="2" gid="3221225503" x="204.639" y="72.6027" width="58.5" height="41" rotation="324.844"/>
+	 </objectgroup>
+	</map>
 
 
 PHP
 
-$map = (new Tiled\Xml\Map($id))->deserialize(file_get_contents('1.tmx'))->save();	
+	map = (new Tiled\Xml\Map($id))->deserialize(file_get_contents('1.tmx'))->save();	
 
 
 Для изменения стандартной логики сохранения и парсинга в классах - структурах можно переопределять методы save() и deserialize().

@@ -40,10 +40,10 @@ class LayerData extends \Edisom\App\map\model\Tiled\LayerData
 		for($i=0; $i<count($explode); $i++)
 		{
 			$this->tiles[] = new LayerTile(
-				($explode[$i] & ~(FLIPPED_HORIZONTALLY_FLAG | FLIPPED_VERTICALLY_FLAG | FLIPPED_DIAGONALLY_FLAG)),
-				($explode[$i] & FLIPPED_HORIZONTALLY_FLAG?1:null),
-				($explode[$i] & FLIPPED_VERTICALLY_FLAG?1:null),
-				($explode[$i] & FLIPPED_DIAGONALLY_FLAG?1:null)
+				($explode[$i] & ~(Xml::FLIPPED_HORIZONTALLY_FLAG | Xml::FLIPPED_VERTICALLY_FLAG | Xml::FLIPPED_DIAGONALLY_FLAG)),
+				($explode[$i] & Xml::FLIPPED_HORIZONTALLY_FLAG?1:null),
+				($explode[$i] & Xml::FLIPPED_VERTICALLY_FLAG?1:null),
+				($explode[$i] & Xml::FLIPPED_DIAGONALLY_FLAG?1:null)
 			);
 			
 		} 		

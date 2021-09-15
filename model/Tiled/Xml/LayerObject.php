@@ -11,8 +11,8 @@ class LayerObject extends \Edisom\App\map\model\Tiled\LayerObject
 
 		if($this->gid)
 		{
-			$this->horizontal 	= ($this->gid & FLIPPED_HORIZONTALLY_FLAG?1:null);
-			$this->vertical 	= ($this->gid & FLIPPED_VERTICALLY_FLAG?1:null);
+			$this->horizontal 	= ($this->gid & Xml::FLIPPED_HORIZONTALLY_FLAG?1:null);
+			$this->vertical 	= ($this->gid & Xml::FLIPPED_VERTICALLY_FLAG?1:null);
 		}
 		
 		return $this;
@@ -20,7 +20,7 @@ class LayerObject extends \Edisom\App\map\model\Tiled\LayerObject
 	
 	function save():void
 	{
-		if($this->gid && ($id = $this->gid & ~(FLIPPED_HORIZONTALLY_FLAG | FLIPPED_VERTICALLY_FLAG)))
+		if($this->gid && ($id = $this->gid & ~(Xml::FLIPPED_HORIZONTALLY_FLAG | Xml::FLIPPED_VERTICALLY_FLAG)))
 		{
 			if(!$this->tile_id = TilesetTile::$tileid[$id])
 			{

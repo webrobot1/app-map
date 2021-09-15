@@ -1,9 +1,5 @@
 <?php
 namespace Edisom\App\map\model\Tiled;
-
-DEFINE("FLIPPED_HORIZONTALLY_FLAG", 0x80000000);
-DEFINE("FLIPPED_VERTICALLY_FLAG", 0x40000000);
-DEFINE("FLIPPED_DIAGONALLY_FLAG", 0x20000000);
 	
 #[\Attribute]
 class Map extends Loader

@@ -5,6 +5,10 @@ abstract class Xml
 {	
 	public static \XMLReader $reader;
 
+	const "FLIPPED_HORIZONTALLY_FLAG" = 0x80000000;
+	const "FLIPPED_VERTICALLY_FLAG" = 0x40000000;
+	const "FLIPPED_DIAGONALLY_FLAG" = 0x20000000;
+
 	final public static function deserialize(object &$object, string $source = null):void
 	{
 		if($source)
