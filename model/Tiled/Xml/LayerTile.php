@@ -15,7 +15,7 @@ class LayerTile extends \Edisom\App\map\model\Tiled\LayerTile
 	
 	function save():void
 	{
-		if(!$this->tile_id = TilesetTile::$tileid[$this->id])
+		if($this->id && !$this->tile_id = TilesetTile::$tileid[$this->id])
 		{
 			throw new \Exception("не найден tile_id ".$this->id);	
 		}			
