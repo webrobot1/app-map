@@ -30,7 +30,7 @@ class Tileset extends Loader
 		
 		// изображение тайлов (tilemaps)
 		#[Image]
-		public ?string $image = null,					
+		public $image = null,					
 		public ?string $trans = null,	
 	){
 		parent::__construct();

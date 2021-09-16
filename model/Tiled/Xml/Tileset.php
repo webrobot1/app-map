@@ -23,9 +23,9 @@ class Tileset extends \Edisom\App\map\model\Tiled\Tileset
 				
 				// не обязательно но раз везде относительные то и тут пусть будет
 				// и это полезно когда на локале тест идет (там же абсолютный путь не как у сервера)
-				if($this->image)
+				if($this->image->source)
 				{
-					$this->image = ltrim(str_replace($folder, '', static::$folder.$this->image), '/');
+					$this->image->source = ltrim(str_replace($folder, '', static::$folder.$this->image->source), '/');
 				}
 				
 				static::$folder = $folder;

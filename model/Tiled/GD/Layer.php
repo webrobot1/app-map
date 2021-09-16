@@ -69,6 +69,13 @@ class Layer extends \Edisom\App\map\model\Tiled\Layer
 			}
 		}
 		
+		if($this->opacity < 1)
+		{
+			imagealphablending($this->resource, false); // imagesavealpha can only be used by doing this for some reason
+			imagesavealpha($this->resource, true); 		// this one helps you keep the alpha. 		
+			imagefilter($this->resource, IMG_FILTER_COLORIZE, 0, 0, 0, 127*(1 - $this->opacity)); // the fourth parameter is alpha
+		}
+		
 		return $this;
 	}
 }
