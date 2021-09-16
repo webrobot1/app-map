@@ -1,3 +1,5 @@
+![Preview](theme/default/backend/img/preview.png)
+
 Приложение является частью репозитория [Движок](https://github.com/webrobot1/engine) в стсотаве проекта "Онлайн игры"
 
 Служит для управления игровыми картами, в тч:
