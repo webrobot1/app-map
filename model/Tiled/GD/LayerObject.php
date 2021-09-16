@@ -3,6 +3,8 @@ namespace Edisom\App\map\model\Tiled\GD;
 
 class LayerObject extends \Edisom\App\map\model\Tiled\LayerObject
 {
+	public \GdImage $resource;
+	
 	function load():static
 	{
 		parent::load();	

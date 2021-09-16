@@ -31,7 +31,9 @@ class Tileset extends \Edisom\App\map\model\Tiled\Tileset
 					$this->tileheight+$this->margin
 				);
 			}
-		}
+			if($this->trans && ($trans = sscanf($this->trans, "%02x%02x%02x")))
+				imagecolortransparent($resource, imagecolorallocate($resource, $trans[0], $trans[1], $trans[2]));			
+		}		
 		
 		return $this;
 	}

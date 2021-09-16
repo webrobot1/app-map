@@ -3,6 +3,8 @@ namespace Edisom\App\map\model\Tiled\GD;
 
 class Layer extends \Edisom\App\map\model\Tiled\Layer
 { 	
+	public \GdImage $resource;
+	
 	function load():static
 	{
 		// для отрисовки НЕ нужны данные по данынм свйоствам этого класса где указаны атрибуты Reflection

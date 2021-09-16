@@ -3,6 +3,7 @@ namespace Edisom\App\map\model\Tiled\GD;
 
 class Map extends \Edisom\App\map\model\Tiled\Map
 {		
+	public \GdImage $resource;
 
 	function load():static
 	{
