@@ -10,7 +10,8 @@ class LayerTile extends \Edisom\App\map\model\Tiled\LayerTile
 		public ?int $vertical = null,
 		public ?int $diagonal = null
 	){
-		parent::__construct();
+		
+		parent::__construct(horizontal:$horizontal, vertical:$vertical, diagonal:$diagonal);
 	}
 	
 	function save():void

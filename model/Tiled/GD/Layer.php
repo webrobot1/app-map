@@ -36,6 +36,35 @@ class Layer extends \Edisom\App\map\model\Tiled\Layer
 					if(!$image = static::$keys[Tileset::class]['tiles'][$tile->tile_id])
 						throw new \Exception('Не нейдено изображение для tile_id '.$tile->tile_id);
 
+					// если tile поернут то надо скопировать его в новый GD объект и вставить его (типа как объект)
+					if($tile->horizontal || $tile->vertical)
+					{
+						$new_image = Png::createEmpty(imagesx($image), imagesy($image));
+						imagecopy(
+							$new_image,
+							$image,
+							0,
+							0,
+							0,
+							0,
+							imagesx($image),
+							imagesy($image)
+						);
+						
+						if($tile->horizontal){
+							if(!imageflip($new_image, IMG_FLIP_HORIZONTAL))
+								throw new \Exception('не удается отразить по горизонтали tile '.$tile->tile_id);
+						}						
+						
+						if($tile->vertical)
+						{
+							if(!imageflip($new_image, IMG_FLIP_VERTICAL))
+								throw new \Exception('не удается отразить по горизонтали tile '.$tile->tile_id);
+						}
+						
+						$image = $new_image;
+					}
+
 					imagecopy(
 						$this->resource,
 						$image, 
@@ -55,7 +84,7 @@ class Layer extends \Edisom\App\map\model\Tiled\Layer
 			{
 				if(!$object->visible) continue;
 				
-				if($object->resource)
+				if(!empty($object->resource))
 				{		
 					imagecopy(
 						$this->resource,

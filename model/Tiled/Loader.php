@@ -147,20 +147,20 @@ abstract class Loader extends \Edisom\Core\Model
 				$this->$increment = $this->last();
 		}
 		
-		// отберем в текущем объекте только не пустые объекты и массивы
-		if(static::$keys[static::class]['objects'])
-			$objects = array_intersect_key(array_filter((array)$this), static::$keys[static::class]['objects']);
-		
 		// здесь уже работаем с объектом существующим (не просто с классом что мы распарсили)  и надо проверить свойства
-		foreach($objects as $filed=>$values)
-		{
-			foreach((!is_array($values)?array($values):$values) as $value){
-				if(is_object($value) && method_exists($value, 'save'))
-				{					
-					$this->set($value);	
-					$value->save();
+		if(static::$keys[static::class]['objects']){
+			foreach(array_keys(static::$keys[static::class]['objects']) as $key)
+			{
+				if(!$this->$key) continue;				
+				foreach((!is_array($this->$key)?array($this->$key):$this->$key) as $value)
+				{
+					if(is_object($value) && method_exists($value, 'save'))
+					{					
+						$this->set($value);	
+						$value->save();
+					}
+					// остальное - все свойства вне конструктора не являющиеся объектами (для каких то внутренних целей)
 				}
-				// остальное - все свойства вне конструктора не являющиеся объектами (для каких то внутренних целей)
 			}
 		}
 	}

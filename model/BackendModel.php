@@ -8,10 +8,16 @@ class BackendModel extends \Edisom\Core\Model
 		return $this->query('SELECT * FROM map '.($callback?'WHERE '.static::explode($callback,' AND '):''));
 	}	
 		
-	function replace(int $id)
+	function replace(int $id = null)
 	{	
+		if(!$id)
+			$id = $this->query('SELECT max(map_id)+1 as id FROM map')[0]['id'];
+		
 		if($_FILES['file'] && ($folder = SITE_PATH."/data/".static::app().'/'.$id))
 		{
+			if(!file_exists($folder))
+				mkdir($folder);
+			
 			switch($_FILES['file']['type'])
 			{
 				case "application/zip":

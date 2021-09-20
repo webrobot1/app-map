@@ -73,6 +73,9 @@ class Map extends Loader
 	
 	function save():void
 	{
+		// tileset свойство всегда первым сохраняем
+		uksort(static::$keys[static::class]['objects'], function($a, $b){ return ($b == 'tileset'?1:0); });
+		
 		static::transaction_start();
 			if($this->map_id)
 				$this->query('DELETE FROM '.static::TABLE.' WHERE map_id = '.$this->map_id);
