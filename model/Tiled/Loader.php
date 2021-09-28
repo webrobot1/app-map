@@ -94,42 +94,45 @@ abstract class Loader extends \Edisom\Core\Model
 	
 	function load():static
 	{
-		foreach(static::$keys[static::class]['objects'] as $name => $object)
+		if(!empty(static::$keys[static::class]['objects']))
 		{
-			if(!$this->$name && $object::keys())
+			foreach(static::$keys[static::class]['objects'] as $name => $object)
 			{
-				if($object::TABLE)
-				{	
-					$where = array();
-					foreach(static::$keys[$object]['foreigns'] as $key=>$foreign)
-					{
-						if(property_exists($this, $key))
-						{
-							$where[$foreign] = $this->$key;
-						}
-					}
-
-					if($data = $object::get($where))
-					{
-						foreach($data as $row)
-						{
-							if(gettype($this->$name) == 'array'){
-								$this->$name[] = (new $object(...$row))->load();	
-							}								
-							else
-								$this->$name = (new $object(...$row))->load();		
-						}
-					}
-				}
-				else
+				if(!$this->$name && $object::keys())
 				{
-					if(gettype($this->$name) == 'array')
-						throw new \Exception('свойство '.$name.' ('.$object.') в классе '.static::class.' не может быть массивом если не объявлена контстанта TABLE');
-					
-					if($data = array_filter(array_intersect_key((array)$this, (array)static::$keys[$object]['construct'])))
-						$this->$name = (new $object(...$data))->load();	
-				}
-			}	
+					if($object::TABLE)
+					{	
+						$where = array();
+						foreach(static::$keys[$object]['foreigns'] as $key=>$foreign)
+						{
+							if(property_exists($this, $key))
+							{
+								$where[$foreign] = $this->$key;
+							}
+						}
+
+						if($data = $object::get($where))
+						{
+							foreach($data as $row)
+							{
+								if(gettype($this->$name) == 'array'){
+									$this->$name[] = (new $object(...$row))->load();	
+								}								
+								else
+									$this->$name = (new $object(...$row))->load();		
+							}
+						}
+					}
+					else
+					{
+						if(gettype($this->$name) == 'array')
+							throw new \Exception('свойство '.$name.' ('.$object.') в классе '.static::class.' не может быть массивом если не объявлена контстанта TABLE');
+						
+						if($data = array_filter(array_intersect_key((array)$this, (array)static::$keys[$object]['construct'])))
+							$this->$name = (new $object(...$data))->load();	
+					}
+				}	
+			}
 		}
 
 		return $this;
